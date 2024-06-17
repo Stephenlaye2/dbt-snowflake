@@ -7,13 +7,15 @@
     Try changing "table" to "view" below
 */
 
-{{ config(materialized='table') }}
+{{ 
+    config(materialized='view') 
+    }}
 
-with source_data as (
+with recursive source_data as (
 
     select 1 as id
     union all
-    select null as id
+    select id + 1 from source_data where id < 100
 
 )
 
